@@ -1,5 +1,5 @@
 function [trials] = load_trials(session,channel)
-% Load data
+% Load seperated trials for train/validation/test data sets 
 %
 % Parameters
 % ----------
@@ -7,6 +7,11 @@ function [trials] = load_trials(session,channel)
 %   Session number with format: yyyymmdd
 % - channel: scalar
 %   Channel number
+% 
+% Returns
+% -------
+% - trials: struct (need more details)
+%   Set of trials for train/validation/test data sets
 
 info = get_info();
 

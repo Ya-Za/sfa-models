@@ -1,5 +1,5 @@
 function [model] = load_model(session,channel,fold)
-% Load data
+% Load neural model for a given fold number
 %
 % Parameters
 % ----------
@@ -7,6 +7,13 @@ function [model] = load_model(session,channel,fold)
 %   Session number with format: yyyymmdd
 % - channel: scalar
 %   Channel number
+% - fold: integer scalar
+%   Fold number
+%
+% Returns
+% -------
+% - model: struct (todo: need more details)
+%   Neural model
 
 info = get_info();
 

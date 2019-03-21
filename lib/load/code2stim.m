@@ -1,5 +1,15 @@
 function stim = code2stim(stimcode)
 % Convert stimcode to stim
+%
+% Parameters
+% ----------
+% - stimcode: integer matrix(trial,time)
+%   Coded stimuli
+%
+% Returns
+% -------
+% - stim: boolean array(trial,width,height,time)
+%   Stimulus
 
 info = get_info();
 width = info.width;

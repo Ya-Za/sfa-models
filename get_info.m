@@ -1,4 +1,4 @@
-function info = get_info()
+function [info] = get_info()
     % Get global information
     %
     % Returns

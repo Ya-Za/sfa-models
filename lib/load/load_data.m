@@ -7,11 +7,17 @@ function [data] = load_data(session,channel)
 %   Session number with format: yyyymmdd
 % - channel: scalar
 %   Channel number
-
-% - STIM: 4-D boolean array (trial x width x height x time)
-% - stimcode: integer matrix (trial x time)
-% - tsaccade: integer vector (trial x 1)
-% - RESP: boolean matrix (trial x time)
+%
+% Returns
+% -------
+% - STIM: boolean array(trial,width,height,time)
+%   Stimuli
+% - stimcode: integer matrix(trial,time)
+%   Coded stimuli
+% - tsaccade: integer vector(trial)
+%   Saccade times
+% - RESP: boolean matrix(trial,time)
+%   Responses
 
 info = get_info();
 

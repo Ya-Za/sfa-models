@@ -1,5 +1,8 @@
-function main()
+function [] = main()
 % Main function
+%
+% to see log file
+% >>> type('log.txt');
 
 % Parameters
 % ----------
@@ -53,7 +56,4 @@ toc(method_timer);
 fprintf('\n\n');
 toc(main_timer);
 diary('off');
-
-% to see log file
-% >>> type('log.txt');
 end

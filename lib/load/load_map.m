@@ -1,5 +1,5 @@
 function [map] = load_map(session,channel,prb)
-% Load data
+% Load map of bases for a given probe
 %
 % Parameters
 % ----------
@@ -9,6 +9,11 @@ function [map] = load_map(session,channel,prb)
 %   Channel number
 % - prb: scalar
 %   Probe index
+%
+% Returns
+% -------
+% - map: array(time,delay,iteration)
+%   Map of bases in time/delay grid
 
 info = get_info();
 

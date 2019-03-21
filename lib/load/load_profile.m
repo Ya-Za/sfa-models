@@ -1,5 +1,5 @@
 function [profile] = load_profile(session,channel)
-% Load data
+% Load neural profile
 %
 % Parameters
 % ----------
@@ -7,6 +7,11 @@ function [profile] = load_profile(session,channel)
 %   Session number with format: yyyymmdd
 % - channel: scalar
 %   Channel number
+%
+% Returns
+% -------
+% - profile: struct (todo: need more details)
+%   Neural profile
 
 info = get_info();
 

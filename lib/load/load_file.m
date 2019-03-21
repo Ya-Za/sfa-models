@@ -1,10 +1,15 @@
 function [file] = load_file(filename)
-% Load data
+% Load file
 %
 % Parameters
 % ----------
 % - filename: char vaector
 %   Filename which would be loaded
+%
+% Returns
+% -------
+% - data: structure array
+%   Loaded data
 
 
 fprintf('Load `%s`: ',filename);
