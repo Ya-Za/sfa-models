@@ -1,9 +1,5 @@
 function main()
-close('all');
-clc();
-addpath(genpath('lib'));
-diary('log.txt');
-disp(datetime('now'));
+% Main function
 
 % Parameters
 % ----------
@@ -14,24 +10,38 @@ disp(datetime('now'));
 session = 20150511;
 channel = 15;
 
+% close all figures and clear command window
+close('all');
+clc();
+
+% add `lib`, and all its subfolders to the path
+addpath(genpath('lib'));
+
+% copy command widnow to `log.txt` file
+diary('log.txt');
+
+% display current date/time
+disp(datetime('now'));
+
+% start main timer
 main_timer = tic();
 
 % Select bases
 method_timer = tic();
 fprintf('===== Selct probes'' bases =====\n\n');
-select_bases(session,channel);
+% select_bases(session,channel);
 toc(method_timer);
 
 % Make profile
 method_timer = tic();
 fprintf('\n\n===== Make neural profile =====\n\n');
-make_profile(session,channel);
+% make_profile(session,channel);
 toc(method_timer);
 
 % Make model
 method_timer = tic();
 fprintf('\n\n===== Make neural model =====\n\n');
-make_model(session,channel);
+% make_model(session,channel);
 toc(method_timer);
 
 % Make result

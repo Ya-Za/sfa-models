@@ -21,15 +21,15 @@ while do_continue
     for i = 1:length(profile.agenda)
         agenda = profile.agenda{i};
         
-        filename = fullfile(...
+        model_filename = fullfile(...
             info.folders.BS,...
             get_id(session,channel),...
             [agenda,'.mat']);
         
-        fprintf('Load `%s`: ',filename);
+        fprintf('Load `%s`: ',model_filename);
         
         tic();
-        load(filename,'BS');
+        load(model_filename,'BS');
         toc();
         
         learning_rate = 1e+3; % learning rate
@@ -151,13 +151,20 @@ profile.set_of_kernels = make_kernels(...
     profile.set_of_basis);
 
 % save neural profile
-filename = fullfile(...
-    info.folders.models,...
-    get_id(session,channel),...
-    sprintf('fold%02d.mat',fold));
+models_folder = info.folders.models;
+model_subfolder = fullfile(models_folder,get_id(session,channel));
 
-fprintf('Save `%s`: ',filename);
-save(filename,'-struct','profile','-v7.3')
+if ~exist(models_folder,'dir')
+    mkdir(models_folder);
+end
+if ~exist(model_subfolder,'dir')
+    mkdir(model_subfolder);
+end
+
+model_filename = fullfile(model_subfolder,sprintf('fold%02d.mat',fold));
+
+fprintf('Save `%s`: ',model_filename);
+save(model_filename,'-struct','profile','-v7.3')
 toc(save_timer);
 
 rmdir(info.folders.BS,'s');
@@ -239,9 +246,14 @@ function [set_of_params] = get_params(nProfile,session,channel)
 % Get parameters of neural model
 
 info = get_info();
+BS_folder = info.folders.BS;
+BS_subfolder = fullfile(BS_folder,get_id(session,channel));
 
-if ~exist(info.folders.BS,'dir')
-    mkdir(info.folders.BS);
+if ~exist(BS_folder,'dir')
+    mkdir(BS_folder);
+end
+if ~exist(BS_subfolder,'dir')
+    mkdir(BS_subfolder);
 end
 
 set_of_params = struct();
@@ -252,14 +264,9 @@ for i = 1:length(nProfile.agenda)
     agenda = nProfile.agenda{i};
     
     % BS
-    filename = fullfile(...
-        info.folders.BS,...
-        get_id(session,channel),...
-        [agenda,'.mat']);
+    BS_filename = fullfile(BS_subfolder,[agenda,'.mat']);
     
-    
-    
-    if ~exist(filename,'file')
+    if ~exist(BS_filename,'file')
         save_timer = tic();
         
         BS = make_BS(...
@@ -268,13 +275,13 @@ for i = 1:length(nProfile.agenda)
             agenda,...
             nProfile.range_of_study);
         
-        fprintf('Save `%s`: ',filename); 
-        save(filename,'BS','-v7.3');
+        fprintf('Save `%s`: ',BS_filename); 
+        save(BS_filename,'BS','-v7.3');
         toc(save_timer);
     else
-        fprintf('Load `%s`: ',filename);
+        fprintf('Load `%s`: ',BS_filename);
         tic();
-        load(filename,'BS');
+        load(BS_filename,'BS');
         toc();
     end
     

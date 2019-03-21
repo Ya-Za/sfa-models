@@ -47,6 +47,10 @@ for x = 1:width
     end
 end
 
+if ~exist(info.folders.profiles,'dir')
+    mkdir(info.folders.profiles);
+end
+
 profile_filename = fullfile(...
     info.folders.profiles,...
     get_filename(session,channel));
