@@ -1,0 +1,5 @@
+# Files
+*.m~
+Icon?
+.DS_Store
+log.txt
