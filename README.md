@@ -1,4 +1,4 @@
-# **S-model framework**
+# **S-model framework** ([pdf](https://www.google.com))
 
 We developed a state-variable generalized linear model framework, termed the S-model, which is able to track the saccade-induced rapid changes occurring in the spatiotemporal sensitivity of the neurons on a millisecond timescale. The principal idea of the S-model is that the stimulus-response relationship in a neuron is characterized by a set of time-varying stimulus kernels (k[t,τ]), which represent the spatiotemporal receptive field of the neuron as varying along the time dimension (t). The time dimension represents a millisecond scale change in the state of the neuron. Fixing the stimulus kernels along the time dimension results in the conventional time-invariant stimulus kernels (k[τ]) used in ordinary generalized linear models (GLMs) [67] [44]. More specifically, the conditional intensity function (CIF) of the S-model, representing the instantaneous firing rate of an MT neuron, i.e., λ(l)[t], under our experimental paradigm is described by,
 
