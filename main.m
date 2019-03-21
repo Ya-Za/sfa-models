@@ -3,6 +3,21 @@ function [] = main()
 %
 % to see log file
 % >>> type('log.txt');
+%
+% Notations
+% ---------
+% - trn  : train
+% - val  : validation
+% - tst  : test
+% - stm  : stimulus kernel
+% - psk  : post spike kernel
+% - off  : offset kernel
+% - idxs : indexes
+% - resp : responses
+% - stim : stimuli
+% - prb  : probe
+% - fr   : firing rate
+% - fr_ss: self sufficient firing rate
 
 % Parameters
 % ----------
