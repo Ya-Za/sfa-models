@@ -19,19 +19,19 @@ main_timer = tic();
 % Select bases
 method_timer = tic();
 fprintf('===== Selct probes'' bases =====\n\n');
-% select_bases(session,channel);
+select_bases(session,channel);
 toc(method_timer);
 
 % Make profile
 method_timer = tic();
 fprintf('\n\n===== Make neural profile =====\n\n');
-% make_profile(session,channel);
+make_profile(session,channel);
 toc(method_timer);
 
 % Make model
 method_timer = tic();
 fprintf('\n\n===== Make neural model =====\n\n');
-% make_model(session,channel);
+make_model(session,channel);
 toc(method_timer);
 
 % Make result
