@@ -1,5 +1,8 @@
-% todo: need reference
 function [B] = make_bsplie_bases(L,knots)
+% Draw, manipulate and reconstruct B-splines.
+% version 1.5.0.0 (21.1 KB) by Levente Hunyadi
+% link: https://www.mathworks.com/matlabcentral/fileexchange/27374-b-splines
+
 n = 3; % order = 2
 t = min(knots):max(knots); B = [];
 for index = 0:numel(knots)-n-1

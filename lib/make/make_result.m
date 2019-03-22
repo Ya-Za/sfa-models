@@ -104,7 +104,16 @@ end
 end
 
 function [n_lmbd,n_resp] = make_resp(sout,oout,h,param,b0,fork)
-% Make firing rates
+% Make response firing rates
+%
+% Parameters
+% ----------
+% - sout:
+% - oout:
+% - h:
+% - param:
+% - b0:
+% - fork:
 
 n_lmbd = phi(sout + oout + b0,param);
 n_resp = zeros(size(n_lmbd));

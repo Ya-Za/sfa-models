@@ -1,5 +1,17 @@
 function [] = fit_model(profile,session,channel,fold)
 % Fit neural model
+%
+% Parameters
+% ----------
+% - profile: struct
+%   Neural profile
+% - session: scalar
+%   Session number with format: yyyymmdd
+% - channel: scalar
+%   Channel number
+% - fold: scalar
+%   Fold number
+
 
 info = get_info();
 

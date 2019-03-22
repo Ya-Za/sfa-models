@@ -38,7 +38,12 @@ end
 end
 
 function [agenda] = make_agenda()
-% Make agenda
+% Make agenda of kernel names such as `stm`, `psk` and `off`
+%
+% Returns
+% -------
+% - agenda: cell array of char vectors
+%   Includes `stm1`, ..., `stm81`, `psk`, and `off`
 
 info = get_info();
 width = info.width;
@@ -61,6 +66,14 @@ end
 
 function [bases] = make_bases(stim_bases)
 % Make bases
+%
+% Parameters
+% ----------
+% - stim_bases: 
+%
+% Returns
+% -------
+% - bases:
 
 info = get_info();
 width = info.width;
@@ -124,6 +137,16 @@ end
 
 function [trials] = make_trials(trials,index)
 % Make trials
+%
+% Parameters
+% ----------
+% - trials:
+% - index:
+%
+% Returns
+% -------
+% - trials:
+
 trials = struct(...
     'trn_indices',trials.train_indices(index).set,...
     'trn_condtns',trials.train_conds(index).set,...

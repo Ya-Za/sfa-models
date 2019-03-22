@@ -1,5 +1,19 @@
 function [map,delay_bases,time_bases] = decide_bases(session,channel,sigma)
 % Decide about resolution of bases
+%
+% Parameters
+% ----------
+% - session: scalar
+%   Session number with format: yyyymmdd
+% - channel: scalar
+%   Channel number
+% - sigma: scalar
+%   
+% Returns
+% -------
+% - map: array(width,height,time basis,delay basis)
+% - delay_bases: matrix(delay basis,knot)
+% - time_bases: matrix(time basis,knot)
 
 num_iterations = 100;
 
