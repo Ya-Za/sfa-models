@@ -184,9 +184,9 @@ end
 
 % make the map
 map = nan(num_time_bases,num_delay_bases,num_iterations+num_iterations);
-for i = 1:num_time_bases
+parfor index_t = 1:num_time_bases
     x = nan(num_delay_bases,num_iterations + num_iterations);
-    idx = time_bases(i,:) > 0;
+    idx = time_bases(index_t,:) > 0;
     
     for j = 1:num_iterations
         [train_indices,val_indices] = make_train_val(...
@@ -220,7 +220,7 @@ for i = 1:num_time_bases
             1);
     end
     
-    map(i,:,:) = x;
+    map(index_t,:,:) = x;
 end
 end
 
