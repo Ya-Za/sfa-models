@@ -183,6 +183,8 @@ rmdir(info.folders.BS,'s');
 end
 
 function [nProfile,trn_indices,val_indices] = get_trn_val_indices(nProfile)
+% Get train/validation indeces
+
 % - To relase memory, remove test data and just keep `train`, and 
 % `validation` trials
 
@@ -251,6 +253,7 @@ end
 
 function [mean_firing_rate] = get_min_fr(resp,stim)
 % Estimate minimum firing rate
+
 mean_firing_rate = 1000 * mean(resp(~isnan(stim)), 'all');
 end
 
@@ -297,7 +300,7 @@ for i = 1:length(nProfile.agenda)
         toc();
     end
     
-    % x
+    % x := initial value of gradient ascent (weight of bases)
     set_of_params.(agenda).x = ...
         zeros(size(nProfile.set_of_basis.(agenda).B,1),1) +...
         eps;
@@ -318,11 +321,7 @@ end
 end
 
 function [BS] = make_BS(set_of_data,set_of_basis,agenda,range_of_study)
-% Make BS
-
-% BS := (stm = B * S) | (psk = B * r) | (off = B)
-% sig := signal
-% x0 := initial value of gradient ascent (weight of bases)
+% Make BS := (stm = B * S) | (psk = B * r) | (off = B)
 
 resp = set_of_data.RESP; % trial x time
 stim = set_of_data.STIM; % trail x probe_x x probe_y x time
@@ -376,7 +375,7 @@ end
 end
 
 function [sig] = make_sig(set_of_data,agenda,range_of_study)
-% Make BS
+% Make signal
 
 resp = set_of_data.RESP; % trial x time
 num_trials = size(resp,1); % number of trials
@@ -404,7 +403,8 @@ out = squeeze(sum((grd .* (x .^ pow)) .* BS));
 end
 
 function [grd] = grad_comp(acode,indices,agenda,set_of_params,set_of_basis,BS)
-% Gradient of comp
+% Gradient of components
+
 delta = 1/1000;
 b0 = set_of_params.b0;
 params = set_of_params.params;
@@ -426,6 +426,8 @@ grd = sum(((rs2d./ld2d)-delta) .* dphi(inv_phi(ld2d,params),params) .* ((cof.*po
 end
 
 function [out] = loglike(x,acode,indices,agenda,set_of_params,grd,pow,BS)
+% Loglikelihood
+
 delta = 1 / 1000;
 b0 = set_of_params.b0;
 params = set_of_params.params;
@@ -447,6 +449,7 @@ end
 
 function [th] = get_th(agenda)
 % Get threshold
+
 switch agenda
     case 'psk'
         th = 1e-12;

@@ -296,7 +296,7 @@ end
 end
 
 function [grd] = grad_comp(indices,x,BS,rsp,set_of_params)
-% Devivative of comp
+% Devivative of components
 
 delta = 1/1000;
 BS = BS(:,indices,:);

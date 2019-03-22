@@ -18,6 +18,8 @@ function [info] = get_info()
     %     Duration that a probe is on
     %   - num_folds: scalar
     %     Number of folds
+    %   - bases_iterations: scalar
+    %     Number of iterations to find important bases
     %   - folders: struct
     %       - assets: char vector
     %         Path to the `assets` folder
@@ -41,6 +43,7 @@ function [info] = get_info()
     num_delays = 150;
     probe_time_resolution = 7;
     num_folds = 1;
+    bases_iterations = 100;
     
     assets_folder = 'assets';
     folders = struct(...
@@ -60,5 +63,6 @@ function [info] = get_info()
         'num_delays',num_delays,...
         'probe_time_resolution',probe_time_resolution,...
         'num_folds',num_folds,...
+        'bases_iterations',bases_iterations,...
         'folders',folders);
 end

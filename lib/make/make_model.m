@@ -66,14 +66,6 @@ end
 
 function [bases] = make_bases(stim_bases)
 % Make bases
-%
-% Parameters
-% ----------
-% - stim_bases: 
-%
-% Returns
-% -------
-% - bases:
 
 info = get_info();
 width = info.width;
@@ -137,15 +129,6 @@ end
 
 function [trials] = make_trials(trials,index)
 % Make trials
-%
-% Parameters
-% ----------
-% - trials:
-% - index:
-%
-% Returns
-% -------
-% - trials:
 
 trials = struct(...
     'trn_indices',trials.train_indices(index).set,...
