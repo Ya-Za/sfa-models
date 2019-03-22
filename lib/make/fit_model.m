@@ -481,8 +481,7 @@ for intenda = 1:length(agenda)
             grd = set_of_basis.(acode).grd;
             set_of_kernels.(acode).knl = squeeze(sum((grd .* (x .^ pow)) .* B,1));
         case 'off'
-            % todo: `*` or `.*`
-            set_of_kernels.(acode).knl = set_of_params.(acode).x .* set_of_basis.(acode).B;
+            set_of_kernels.(acode).knl = set_of_params.(acode).x' * set_of_basis.(acode).B;
         otherwise
             x = set_of_params.(acode).x;
             B = set_of_basis.(acode).B;
