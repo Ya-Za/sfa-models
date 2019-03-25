@@ -17,7 +17,7 @@ info = get_info();
 
 fullfilename = fullfile(...
     info.folders.data,...
-    sprintf('%d.mat',session));
+    get_filename(session,channel));
 
 file = load_file(fullfilename);
 trials = file.trials;
