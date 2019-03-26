@@ -466,6 +466,7 @@ function [set_of_kernels] = make_kernels(agenda,set_of_params,set_of_basis)
 info = get_info();
 width = info.width;
 height = info.height;
+sz = [width,height];
 num_times = info.num_times;
 num_delays = info.num_delays;
 
@@ -487,7 +488,7 @@ for intenda = 1:length(agenda)
             B = set_of_basis.(acode).B;
             pow = set_of_basis.(acode).pow;
             grd = set_of_basis.(acode).grd;
-            [i,j] = ind2sub([9,9],str2double(acode(4:end)));
+            [i,j] = ind2sub(sz,str2double(acode(4:end)));
             knl(i,j,:,:) = squeeze(sum((grd .* (x .^ pow)) .* B,1));
     end
 end
