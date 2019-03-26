@@ -18,6 +18,10 @@ function [info] = get_info()
     %     Duration that a probe is on
     %   - num_folds: scalar
     %     Number of folds
+    %   - pct_test: scalar
+    %     Percentage of test data
+    %   - pct_train: scalar
+    %     Percentage of train data
     %   - bases_iterations: scalar
     %     Number of iterations to find important bases
     %   - folders: struct
@@ -43,6 +47,8 @@ function [info] = get_info()
     num_delays = 150;
     probe_time_resolution = 7;
     num_folds = 1;
+    pct_test = 0.35;
+    pct_train = 0.35;
     bases_iterations = 100;
     
     assets_folder = 'assets';
@@ -63,6 +69,8 @@ function [info] = get_info()
         'num_delays',num_delays,...
         'probe_time_resolution',probe_time_resolution,...
         'num_folds',num_folds,...
+        'pct_test',pct_test,...
+        'pct_train',pct_train,...
         'bases_iterations',bases_iterations,...
         'folders',folders);
 end

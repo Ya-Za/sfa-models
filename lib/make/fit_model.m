@@ -248,13 +248,13 @@ for trial = 1:size(resp,1)
     % `horizontally` (on time)
     lambda(trial,:) = smoothdata(resp(trial,:),'gaussian',win);
 end
-max_firing_rate = 1000 * max(lambda(~isnan(stim)));
+max_firing_rate = 1000 * max(lambda(stim > 0));
 end
 
 function [mean_firing_rate] = get_min_fr(resp,stim)
 % Estimate minimum firing rate
 
-mean_firing_rate = 1000 * mean(resp(~isnan(stim)), 'all');
+mean_firing_rate = 1000 * mean(resp(stim > 0), 'all');
 end
 
 function [set_of_params] = get_params(nProfile,session,channel)

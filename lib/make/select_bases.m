@@ -131,7 +131,7 @@ function params = make_params(resp,stimcode)
 % todo: 0 -> b0
 params.params = [1000 0];
 
-resp = resp(~isnan(stimcode));
+resp = resp(stimcode > 0);
 params.b0 = inv_phi(...
     mean(resp) * 1000,...
     params.params);
@@ -164,8 +164,8 @@ BS = nan(num_delay_bases,num_trials,num_times);
 
 for i = 1:num_trials
     part_of_stim = squeeze(stim(i,x,y,:));
-    nan_index = find(isnan(part_of_stim),1);
-    part_of_stim = part_of_stim(1:nan_index - 1);
+    % nonzero_index = find(part_of_stim > 0,1,'last');
+    % part_of_stim = part_of_stim(1:nonzero_index);
     
     for j = 1:num_delay_bases
         t_conv = conv(delay_bases(j,:),part_of_stim);

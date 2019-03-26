@@ -23,9 +23,7 @@ stim = zeros(N,width,height,T);
 
 sz = [width,height];
 for trial = 1:N
-    end_time = find(~isnan(stimcode(trial,:)),1,'last');
-    
-    for time = 1:end_time
+    for time = 1:T
         index = stimcode(trial,time);
         
         if index
@@ -33,8 +31,6 @@ for trial = 1:N
             stim(trial,x,y,time) = 1;
         end
     end
-    
-    stim(trial,:,:,(end_time + 1):end) = nan;
 end
 
 end
