@@ -76,7 +76,7 @@ while do_continue
                 trn_indices,...
                 profile.agenda,...
                 profile.set_of_params,...
-                profile.set_of_basis,...
+                profile.set_of_basis,... % todo: must be removed
                 BS);
 
             x = profile.set_of_params.(agenda).x + ...
@@ -203,6 +203,7 @@ all_indices(tst_indices) = 3; % test
 
 % update neural profile
 trn_val_indices = (all_indices == 1 | all_indices == 2);
+% todo: `set_of_data` is redundant
 nProfile.set_of_data.STIM = nProfile.set_of_data.STIM(trn_val_indices,:,:,:);
 nProfile.set_of_data.stimcode = nProfile.set_of_data.stimcode(trn_val_indices,:);
 nProfile.set_of_data.tsaccade = nProfile.set_of_data.tsaccade(trn_val_indices);

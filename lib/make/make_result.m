@@ -33,7 +33,7 @@ for fold = 1:num_folds
     if exist(model_filename,'file') && ~exist(results_model_filename,'file')
         model = load_model(session,channel,fold);
 
-        fork = nan(length(model.range_of_study),150);
+        fork = nan(length(model.range_of_study),num_delays);
         for counter = 1:num_delays
             fork(:,counter) = model.range_of_study - counter + 1;
         end
@@ -75,7 +75,7 @@ for fold = 1:num_folds
             end
 
             part_of_resp = RESP(trial,:);
-            comb = part_of_resp(fork+tsaccade(trial));
+            comb = part_of_resp(fork + tsaccade(trial));
             fr(trial,:) = phi(...
                 part_of_trials +...
                 model.set_of_kernels.off.knl +...
@@ -89,7 +89,7 @@ for fold = 1:num_folds
                 model.set_of_kernels.psk.knl,...
                 model.set_of_params.params,...
                 model.set_of_params.b0,...
-                max(fork + 541,1));
+                max(fork - min(model.range_of_study) + 1,1));
 
             fr_ss(trial,:) = for_model;
         end
