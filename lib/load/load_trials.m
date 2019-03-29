@@ -20,7 +20,11 @@ fullfilename = fullfile(...
     get_filename(session,channel));
 
 file = load_file(fullfilename);
-trials = get_trials(double(file.conds));
+% N: number of trials
+[N, ~] = size(file.stim);
+conds = repmat((1:81)', ceil(N / 81), 1);
+conds = conds(1:N);
+trials = get_trials(conds);
 end
 
 function [trials] = get_trials(all_conds)
