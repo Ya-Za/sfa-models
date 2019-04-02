@@ -1,4 +1,9 @@
-# **S-model framework** [[pdf](https://www.google.com)]
+# Statistical analysis of perisaccadic responses [[pdf](https://www.google.com)]
+
+In this paper, three perisaccadic response modulations were studied: saccadic suppression, FF-remapping, and ST-remapping. Saccadic suppression was defined as a significant decrease in the mean firing rate of the neuron over the early response window (50-75 ms after stimulus onset) in response to a stimulus presented in the RF probe location shortly before a saccade (-30 to 0 ms from saccade onset), compared to the same stimulus presented during fixation (-500 to -100 ms from saccade onset). In the same way, the FF- and ST-remapping in a neuron were defined as increases in the mean firing rate of the neuron in the late response window (80-150 ms after stimulus onset) to a stimulus presented in the FF or ST probe location shortly before saccade (-50 to 0 ms from saccade onset) compared to the same stimulus presented during fixation (-500 to -100 ms from saccade onset). In all three cases, the statistical significance was tested by comparing the perisaccadic and fixation firing rates using the Wilcoxon one-sided signed-rank test, and a p-value of less than 0.05 was considered statistically significant.
+Note that all statistical analyses were performed on spike counts without any smoothing. For graphical purposes, however, the spike trains were smoothed by convolving with a 21 ms Gaussian window. The response of a neuron to a stimulus presented in a given time interval was estimated by averaging the stimulus-aligned spike trains from 0 to 150 ms after stimulus onset. Due to differences in the mean firing activity of MT neurons, their perisaccadic and fixation responses were normalized by dividing by the grand mean of their firing rates (from 0-150 ms after onset of a stimulus, across both conditions) before averaging over a population of neurons.
+
+## S-model framework 
 
 We developed a state-variable generalized linear model framework, termed the S-model, which is able to track the saccade-induced rapid changes occurring in the spatiotemporal sensitivity of the neurons on a millisecond timescale. The principal idea of the S-model is that the stimulus-response relationship in a neuron is characterized by a set of time-varying stimulus kernels (k[t,τ]), which represent the spatiotemporal receptive field of the neuron as varying along the time dimension (t). The time dimension represents a millisecond scale change in the state of the neuron. Fixing the stimulus kernels along the time dimension results in the conventional time-invariant stimulus kernels (k[τ]) used in ordinary generalized linear models (GLMs) [67] [44]. More specifically, the conditional intensity function (CIF) of the S-model, representing the instantaneous firing rate of an MT neuron, i.e., λ(l)[t], under our experimental paradigm is described by,
 
@@ -39,6 +44,28 @@ To avoid overfitting despite the high dimensionality of the S-model, multiple co
 |μx,y,i,j − μ´x,y,i,j| ≥ 1.5 σ´x,y,i,j, (10)
 
 where μ´x,y,i,j, and σ´x,y,i,j are the mean and standard deviation of the control distribution. Those κx,y,i,j parameters that were detected as significant were included in the model fitting and otherwise were set to zero. This regularization imposed sparsity over the parameter set and recovered a more coherent structure in the neuron&#39;s spatiotemporal sensitivity across both the delay and state variables, providing a detailed map of the neuron&#39;s state-dependent spatiotemporal dynamics with no concern of overfitting.
+
+## F-model framework
+
+Although the S-model can capture the RF dynamics and thus can characterize the response modulation on the timescale of a saccade, it does not identify explicitly what sources contribute to the response modulation. The idea of identifying modulatory sources was inspired by the perisaccadic response modulations observed in the experimental data, including the saccadic suppression, FF-remapping, and ST-remapping. In fact, the stimulus kernels fitted using the S-model, S-kernels, closely resemble a time-varying mixture of spatial Gaussians where each Gaussian captures response modulation arising from one of the RF, FF, or ST sources. To quantitatively dissociate the effects of RF, FF, and ST sources, a factorized state-variable generalized linear model, called the F-model, was developed which approximates the fitted S-kernels kx,y[t,τ] by k^x,y[t,τ] as:
+
+k^x,y[t,τ] = k~x,y[τ] + ∑sr Gsr(x,y;φsr) + c, (11)
+
+where k~x,y[τ], termed the fixation kernel, represents the average spatiotemporal receptive field of the neuron over the fixation period obtained by averaging the S-kernels kx,y[t,τ] over a time window of (-400:-300) ms from saccade; crepresents the state- and delay-dependent baseline profile, which is uniform across spatial dimensions; and finally each Gsr(x,y;φsr) specifies a spatial Gaussian kernel representing the state- and delay-dependent spatial profile of each modulation source sr∈{RF,FF,ST} parametrized by φsr={a,μx,μy,σx,σy,ρ,γx,γy} as follows,
+
+Gsr(x,y;φsr) = a exp(−1/2/(1−ρ2) {(x−μx)^2/σx^2 + (y−μy)^2/σy^2 − 2ρ(x−μx)(y−μy)/σxσy}) Φ(γx(x−μx)) Φ(γy(y−μy)), (12)
+
+wherea, μx, μy, σx, σy, ρ, and (γx,γy) represent the amplitude, the x- and y-coordinate of the center, the horizontal and vertical spread, the orientation, and the horizontal and vertical skewness of each Gaussian kernel, which vary across different states and delays, and Φ(∙) indicates the normal cumulative distribution function.
+
+Each F-kernel k^x,y[t,τ] is a statistically optimal estimate of the S-kernel kx,y[t,τ] such that the mean squared error of the estimation specified in equation (11) was minimized,
+
+∑x,y (k^x,y[t,τ]−kx,y[t,τ])^2. (13)
+
+The minimization is subject to a set of bounded limits on the parameters φsr to ensure constraining them within the effective spatial activation area of each modulation source.
+
+## A-model framework
+
+After confirming the goodness-of-fit of the S- and F-models over test data, all trials (and not only those withheld for model testing) for each cell were employed for the rest of the analyses in this study to provide more accurate empirical measures from the experimental data. Moreover, in order to exploit the maximum information provided by the recordings, an aggregate F-model, termed the A-model, was developed. The A-model was constructed by (1) fitting the S-model ten times as explained earlier, on different randomly selected subsets of the data (2) fitting ten F-models corresponding to each fitted S-model, (3) averaging the model variables (φ_srs, and c) obtained from each F-model in order to gain a set of aggregate variables, and finally, (4) constructing the A-model kernels using the aggregate variables through equation (11). The A-model, as seen in Fig 4, outperformed the other models in capturing the perisaccadic changes in neurons’ responses.
 
 # References
 
