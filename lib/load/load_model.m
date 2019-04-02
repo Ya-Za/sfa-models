@@ -1,4 +1,4 @@
-function [model] = load_model(session,channel,fold)
+function [model,fullfilename] = load_model(session,channel,fold)
 % Load neural model for a given fold number
 %
 % Parameters
@@ -14,6 +14,8 @@ function [model] = load_model(session,channel,fold)
 % -------
 % - model: struct (todo: need more details)
 %   Neural model
+% - fullfilename: char vector
+%   Filename of saved model
 
 info = get_info();
 

@@ -44,29 +44,12 @@ disp(datetime('now'));
 % start main timer
 main_timer = tic();
 
-% Select bases
-method_timer = tic();
-fprintf('===== Selct probes'' bases =====\n\n');
-select_bases(session,channel);
-toc(method_timer);
-
-% Make profile
-method_timer = tic();
-fprintf('\n\n===== Make neural profile =====\n\n');
-make_profile(session,channel);
-toc(method_timer);
-
-% Make model
-method_timer = tic();
-fprintf('\n\n===== Make neural model =====\n\n');
-make_model(session,channel);
-toc(method_timer);
-
-% Make result
-method_timer = tic();
-fprintf('\n\n===== Make result =====\n\n');
-make_result(session,channel);
-toc(method_timer);
+% S-Model
+smodel(session,channel);
+% F-Model
+fmodel(session,channel);
+% A-Model
+amodel(session,channel);
 
 fprintf('\n\n');
 toc(main_timer);

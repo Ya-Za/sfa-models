@@ -50,6 +50,43 @@ function [info] = get_info()
     pct_test = 0.35;
     pct_train = 0.35;
     bases_iterations = 100;
+    % F-Model
+    foptions = optimset(...
+        'Display','off',...
+        'MaxFunEvals',1e3,...
+        'MaxIter',1e3,...
+        'TolX',1e-3,...
+        'TolFun',1e-6,...
+        'TolCon',1e-3);
+
+    lags = [
+        001 020
+        020 040
+        040 050
+        050 053
+        053 056
+        056 059
+        059 062
+        062 065
+        065 068
+        068 071
+        071 074
+        074 077
+        077 080
+        080 085
+        085 090
+        090 095
+        095 100
+        100 105
+        105 110
+        110 115
+        115 120
+        120 125
+        125 130
+        130 135
+        135 140
+        140 145
+        145 150];
     
     assets_folder = 'assets';
     folders = struct(...
@@ -59,6 +96,7 @@ function [info] = get_info()
         'BS',fullfile(assets_folder,'BS'),...
         'profiles',fullfile(assets_folder,'profiles'),...
         'models',fullfile(assets_folder,'models'),...
+        'avg_models',fullfile(assets_folder,'avg-models'),...
         'results',fullfile(assets_folder,'results'));
     
     info = struct(...
@@ -72,5 +110,7 @@ function [info] = get_info()
         'pct_test',pct_test,...
         'pct_train',pct_train,...
         'bases_iterations',bases_iterations,...
+        'foptions',foptions,...
+        'lags',lags,...
         'folders',folders);
 end
