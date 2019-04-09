@@ -155,7 +155,9 @@ new_knl = obj_fun(...
     width,...
     height);
 
-% todo: `fmincon` -> `lsqnonlin`
+% todo: 
+%   - `fmincon` -> `lsqnonlin`
+%   - `norm` -> `Frobenius norm`
 loss = norm(new_knl(:) - knl(:));
 end
 
