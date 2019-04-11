@@ -97,7 +97,10 @@ for fold = 1:num_folds
         % saving data
         fprintf('Save `%s`: ',results_model_filename);
         trials = model.set_of_trials;
-        save(results_model_filename,'stim','resp','fr','fr_ss','trials');
+        
+        % save(results_model_filename,'stim','resp','fr','fr_ss','trials');
+        save(results_model_filename,'stim','resp','fr','trials');
+        
         toc(save_timer);
     end
 end

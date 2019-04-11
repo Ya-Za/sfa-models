@@ -1,5 +1,7 @@
 # Files
 *.m~
+*.mat
+!assets/data/*.mat
 Icon?
 .DS_Store
 log.txt

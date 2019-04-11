@@ -45,11 +45,13 @@ disp(datetime('now'));
 main_timer = tic();
 
 % S-Model
-smodel(session,channel);
-% F-Model
-fmodel(session,channel);
-% A-Model
-amodel(session,channel);
+% smodel(session,channel);
+% % F-Model
+% fmodel(session,channel);
+% % A-Model
+% amodel(session,channel);
+% Plot some results
+plot_results(session,channel)
 
 fprintf('\n\n');
 toc(main_timer);
