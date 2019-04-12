@@ -27,5 +27,5 @@ fr = fr / 1000 + eps;
 fr0 = get_fr0(session,channel,fold,trial);
 fr0 = fr0 / 1000 + eps;
 
-dll = sum(r .* log(fr ./ fr0) - fr + fr0);
+dll = sum(r .* log(fr ./ fr0) - fr + fr0) / sum(r);
 end
