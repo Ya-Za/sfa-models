@@ -5,4 +5,5 @@ box('on');
 grid('on');
 colormap('jet');
 set(gca(),'FontSize',20);
+axis('tight');
 end
