@@ -17,7 +17,7 @@ knl = get_f_knl_stm(session,channel,fold);
 % time-delay map
 map = squeeze(knl(probe(1),probe(2),:,:));
 
-createFigure('F-Model - Estimated Stimulus Kernel');
+create_figure('F-Model - Estimated Stimulus Kernel');
 
 plot_time_delay_map(map);
 

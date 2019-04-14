@@ -21,7 +21,7 @@ colors = lines(2);
 s_fr = get_s_fr(session,channel,fold);
 s_fr = s_fr(trial,:);
 
-createFigure('S-Model - Response');
+create_figure('S-Model - Response');
 
 % firing rate
 plot(times,s_fr,...
