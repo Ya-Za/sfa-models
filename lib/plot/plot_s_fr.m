@@ -1,5 +1,5 @@
-function plot_s_resp(session,channel,fold,trial)
-% Plot response of specific s-model for given trial
+function plot_s_fr(session,channel,fold,trial)
+% Plot response firting rate of specific s-model for given trial
 %
 % Parameters
 % ----------

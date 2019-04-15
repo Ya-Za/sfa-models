@@ -1,5 +1,5 @@
-function resp = get_resp(session,channel,fold)
-% Get true responses of specific neuron
+function stim = get_stim(session,channel,fold)
+% Get stimuli of specific neuron
 %
 % Parameters
 % ----------
@@ -12,9 +12,9 @@ function resp = get_resp(session,channel,fold)
 %
 % Returns
 % -------
-% - resp: 2D matrix
+% - stim: 2D matrix
 %   (trial x time) response
 
 result = load_result(session,channel,fold);
-resp = result.resp;
+stim = result.stim;
 end

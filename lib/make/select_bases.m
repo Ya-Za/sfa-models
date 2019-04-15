@@ -184,7 +184,7 @@ end
 
 % make the map
 map = nan(num_time_bases,num_delay_bases,num_iterations+num_iterations);
-for ind_t = 1:num_time_bases
+parfor ind_t = 1:num_time_bases
     for ind_d = 1:num_delay_bases
         x = nan(1,num_iterations + num_iterations);
         idx = time_bases(ind_t,:) > 0;

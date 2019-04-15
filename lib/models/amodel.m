@@ -34,11 +34,11 @@ profile = model;
 for fold = 2:num_folds
     model = load_model(session,channel,fold);
 
-    profile.set_of_kernels.stm.knl = profile.set_of_kernels.stm.knl + model.nProfile.set_of_kernels.stm.knl;
-    profile.set_of_kernels.gas.knl = profile.set_of_kernels.gas.knl + model.nProfile.set_of_kernels.gas.knl;
-    profile.set_of_kernels.gas.cof = profile.set_of_kernels.gas.cof + model.nProfile.set_of_kernels.gas.cof;
-    profile.set_of_kernels.off.knl = profile.set_of_kernels.off.knl + model.nProfile.set_of_kernels.off.knl;
-    profile.set_of_kernels.psk.knl = profile.set_of_kernels.psk.knl + model.nProfile.set_of_kernels.psk.knl;
+    profile.set_of_kernels.stm.knl = profile.set_of_kernels.stm.knl + model.set_of_kernels.stm.knl;
+    profile.set_of_kernels.gas.knl = profile.set_of_kernels.gas.knl + model.set_of_kernels.gas.knl;
+    profile.set_of_kernels.gas.cof = profile.set_of_kernels.gas.cof + model.set_of_kernels.gas.cof;
+    profile.set_of_kernels.off.knl = profile.set_of_kernels.off.knl + model.set_of_kernels.off.knl;
+    profile.set_of_kernels.psk.knl = profile.set_of_kernels.psk.knl + model.set_of_kernels.psk.knl;
 end
 
 % average

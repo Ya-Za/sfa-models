@@ -1,4 +1,4 @@
-function dll = get_dll(session,channel,fold,trial)
+function dll = get_dll(session,channel,fold,trials,times)
 % Get true delta log-likelihood of specific neuron
 %
 % Parameters
@@ -9,8 +9,10 @@ function dll = get_dll(session,channel,fold,trial)
 %   Channel number
 % - fold: integer scalar
 %   Fold number
-% - trial: scalar
-%   Trial index
+% - trials: vector
+%   Trial indeces
+% - times: vector
+%   Time of study
 %
 % Returns
 % -------
@@ -18,14 +20,23 @@ function dll = get_dll(session,channel,fold,trial)
 %   Delta log-likelihood
 
 r = get_resp(session,channel,fold);
-r = r(trial,:);
+
+if ~exist('trials','var')
+    trials = 1:size(r,1);
+end
+if ~exist('times','var')
+    times = 1:size(r,2);
+end
+
+r = r(trials,times);
 
 fr = get_s_fr(session,channel,fold);
-fr = fr(trial,:);
+fr = fr(trials,times);
 fr = fr / 1000 + eps;
 
-fr0 = get_fr0(session,channel,fold,trial);
+fr0 = get_fr0(session,channel,fold);
+fr0 = fr0(trials,times);
 fr0 = fr0 / 1000 + eps;
 
-dll = sum(r .* log(fr ./ fr0) - fr + fr0) / sum(r);
+dll = sum(r .* log(fr ./ fr0) - fr + fr0, 'all') / sum(r, 'all');
 end

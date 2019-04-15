@@ -1,4 +1,4 @@
-function fr0 = get_fr0(session,channel,fold,trial)
+function fr0 = get_fr0(session,channel,fold)
 % Get firing rate of null model
 %
 % Parameters
@@ -9,8 +9,6 @@ function fr0 = get_fr0(session,channel,fold,trial)
 %   Channel number
 % - fold: integer scalar
 %   Fold number
-% - trial: scalar
-%   Trial index
 %
 % Returns
 % -------
@@ -22,7 +20,9 @@ function fr0 = get_fr0(session,channel,fold,trial)
 [~,psk,off] = get_s_knls(session,channel,fold);
 
 r = get_resp(session,channel,fold);
-r = r(trial,:);
 
-fr0 = a * logsig(conv(r,psk,'same') + off + b);
+fr0 = zeros(size(r));
+for i = 1:size(r,1)
+    fr0(i,:) = a * logsig(conv(r(i,:),psk,'same') + off + b);
+end
 end
