@@ -5,4 +5,4 @@
 Icon?
 .DS_Store
 log.txt
-tmp
+lib/tmp
