@@ -55,7 +55,8 @@ resp_set = [];
 s_fr_set = [];
 for i = 1:N
     for t = times
-        if stim(i, t) == 0 && stim(i, t + 1) == 1
+        % if stim(i, t) == 0 && stim(i, t + 1) == 1
+        if stim(i, t) == 1
             resp_set(end + 1,:) = resp(i, t:t + window);
             s_fr_set(end + 1,:) = s_fr(i, t:t + window);
         end
