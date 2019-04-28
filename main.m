@@ -18,7 +18,7 @@ function [] = main()
 % - prb  : probe
 % - fr   : firing rate
 % - fr_ss: self sufficient firing rate
-
+%
 % Parameters
 % ----------
 % - session: scalar
@@ -44,7 +44,7 @@ disp(datetime('now'));
 % start main timer
 main_timer = tic();
 
-% % S-Model
+% S-Model
 smodel(session,channel);
 % F-Model
 fmodel(session,channel);
