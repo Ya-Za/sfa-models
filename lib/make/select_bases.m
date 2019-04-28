@@ -8,6 +8,129 @@ function [] = select_bases(session,channel)
 % - channel: scalar
 %   Channel number
 
+% p: probability of success/spike
+
+alpha = 0.01; % significanse level
+sw = 15; % smoothing window
+
+info = get_info();
+num_delays = info.num_delays;
+num_times = info.num_times;
+times = info.times;
+
+bases_folder = info.folders.bases;
+% building maps
+id = get_id(session, channel);
+bases_subfolder = fullfile(bases_folder, id);
+if ~exist(bases_subfolder, 'dir')
+    mkdir(bases_subfolder);
+end
+
+% stim/resp
+times = (times(1) - num_delays):times(end);
+[stim, resp] = load_aligned_stim_resp(session, channel, times);
+resp = smoothdata(resp, 2, 'gaussian', sw);
+
+% structuring elements for erosion and dilation
+se_erode = strel('disk', 2);
+se_dilate = strel('disk', 14);
+
+% time/delay bases
+bases = make_bases();
+num_time_bases = size(bases.B_t,1); % number of bases for time
+num_delay_bases = size(bases.B_d,1); % number of bases for delay
+
+
+for prope = 1:(info.width * info.height)
+    map_filename = fullfile(...
+        bases_subfolder,...
+        sprintf('prb%02d.mat', index));
+    
+    if ~exist(map_filename,'file')
+        save_timer = tic();
+
+        % time/delay map of basis functions
+        map = false(num_times, num_delays);
+        it = 1; % index of time
+        for t = (num_delays + 1):num_times
+            for d = 1:num_delays
+                idx = stim(:, t - d) == probe;
+
+                pref = resp(idx, t);
+                npref = resp(~idx, t);
+                if ~isempty(pref) && ~isempty(npref)
+                    p = ptest(...
+                        sum(pref), ...
+                        sum(npref), ...
+                        numel(pref), ...
+                        numel(npref));
+
+                    map(it, d) = p <= alpha;
+                end
+            end
+            it = it + 1;
+        end
+        
+        % clean and resize
+        map = imerode(map, se_erode);
+        map = imdilate(map, se_dilate);
+        map = imresize(map, [num_time_bases, num_delay_bases]);
+
+        fprintf('Save `%s`: ', map_filename);
+        save(map_filename, 'map');
+        toc(save_timer);
+    end
+end
+end
+
+function [stim, resp] = load_aligned_stim_resp(session, channel, times)
+info = get_info();
+
+fullfilename = fullfile(...
+    info.folders.data,...
+    get_filename(session,channel));
+
+file = load_file(fullfilename);
+
+STIM = double(file.stimcode);
+RESP = double(file.resp);
+
+% saccade aligned
+tsac = double(file.tsaccade);
+
+N = numel(tsac); % number of trials
+T = numel(times); % number of times
+
+stim = zeros(N, T);
+resp = zeros(N, T);
+
+for i = 1:numel(tsac)
+    t = times + tsac(i);
+    
+    stim(i, :) = STIM(i, t);
+    resp(i, :) = RESP(i, t);
+end
+end
+
+function pv = ptest(x1, x2, n1, n2)
+p1 = x1 / n1;
+p2 = x2 / n2;
+p = (x1 + x2) / (n1 + n2);
+z = (p1 - p2) / sqrt(p * (1 - p) * ((1 / n1) + (1 / n2)));
+
+pv = 2 * (1 - normcdf(abs(z)));
+end
+
+function [] = select_bases_slow(session,channel)
+% Select bases
+%
+% Parameters
+% ----------
+% - session: scalar
+%   Session number with format: yyyymmdd
+% - channel: scalar
+%   Channel number
+
 info = get_info();
 times = info.times;
 bases_folder = info.folders.bases;
@@ -158,14 +281,14 @@ parfor ind_t = 1:num_time_bases
     for ind_d = 1:num_delay_bases
         x = nan(1,num_iterations + num_iterations);
         idx = time_bases(ind_t,:) > 0;
-
+        
         for j = 1:num_iterations
             [train_indices,val_indices] = make_train_val(...
                 trials.trials,...
                 trials.condtn,...
                 0.35,...
                 0.30);
-
+            
             x(j) = fit_model(...
                 BS(ind_d,:,idx),...
                 rsp(:,idx),...
@@ -174,14 +297,14 @@ parfor ind_t = 1:num_time_bases
                 val_indices,...
                 0);
         end
-
+        
         for j = num_iterations + 1:num_iterations + num_iterations
             [train_indices,val_indices] = make_train_val(...
                 trials.trials,...
                 trials.condtn,...
                 0.35,...
                 0.30);
-
+            
             x(j) = fit_model(...
                 BS(ind_d,:,idx),...
                 rsp(:,idx),...
@@ -190,7 +313,7 @@ parfor ind_t = 1:num_time_bases
                 val_indices,...
                 1);
         end
-
+        
         map(ind_t,ind_d,:) = x;
     end
 end
