@@ -44,7 +44,7 @@ num_delay_bases = size(bases.B_d,1); % number of bases for delay
 for prope = 1:(info.width * info.height)
     map_filename = fullfile(...
         bases_subfolder,...
-        sprintf('prb%02d.mat', index));
+        sprintf('prb%02d.mat', probe));
     
     if ~exist(map_filename,'file')
         save_timer = tic();
