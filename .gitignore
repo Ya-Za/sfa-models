@@ -2,6 +2,7 @@
 *.m~
 *.mat
 !assets/data/*.mat
+*.asv
 
 log.txt
 
