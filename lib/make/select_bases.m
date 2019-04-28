@@ -51,8 +51,9 @@ for probe = 1:(info.width * info.height)
 
         % time/delay map of basis functions
         map = false(num_times, num_delays);
-        it = 1; % index of time
-        for t = (num_delays + 1):num_times
+        
+        for it = 1:num_times % index of time
+            t = it + num_delays;
             for d = 1:num_delays
                 idx = stim(:, t - d) == probe;
 
@@ -68,7 +69,6 @@ for probe = 1:(info.width * info.height)
                     map(it, d) = p <= alpha;
                 end
             end
-            it = it + 1;
         end
         
         % clean and resize
