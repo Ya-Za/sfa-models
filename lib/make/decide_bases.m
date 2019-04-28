@@ -22,23 +22,12 @@ function [map,delay_bases,time_bases] = decide_bases(session,channel,sigma)
 info = get_info();
 width = info.width;
 height = info.height;
-num_delays = info.num_delays;
-num_times = info.num_times;
-probe_time_resolution = info.probe_time_resolution;
 bases_iterations = info.bases_iterations;
 
-% bases
-% - delay
-delay_values = 1:num_delays;                             
-delay_delta = 2 * probe_time_resolution; % todo: why is twice than `7` ms
-delay_knots = make_knots(delay_values,delay_delta);
-delay_bases = make_bsplie_bases(delay_values,delay_knots);
-
-% - time
-time_values = 1:num_times;
-time_delta = 2 * probe_time_resolution;
-time_knots = make_knots(time_values,time_delta);
-time_bases = make_bsplie_bases(time_values,time_knots);
+% time/delay bases
+bases = make_bases();
+time_bases = bases.B_t;
+delay_bases = bases.B_d;
 
 % map
 map = nan(width,height,size(time_bases,1),size(delay_bases,1));
