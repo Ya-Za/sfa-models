@@ -41,7 +41,7 @@ num_time_bases = size(bases.B_t,1); % number of bases for time
 num_delay_bases = size(bases.B_d,1); % number of bases for delay
 
 
-for prope = 1:(info.width * info.height)
+for probe = 1:(info.width * info.height)
     map_filename = fullfile(...
         bases_subfolder,...
         sprintf('prb%02d.mat', probe));
