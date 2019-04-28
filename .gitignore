@@ -2,7 +2,12 @@
 *.m~
 *.mat
 !assets/data/*.mat
+
+log.txt
+
 Icon?
 .DS_Store
-log.txt
+desktop.ini
+
+# Folders
 lib/tmp
