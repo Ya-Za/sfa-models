@@ -148,7 +148,7 @@ while do_continue
                 val_before = val_after;
                 
                 % update termination condition
-                do_continue = improvement > th;
+                do_continue = do_continue | (improvement > th);
             end
         end
         
